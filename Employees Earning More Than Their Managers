@@ -1,0 +1,5 @@
+select name as Employee from Employee a where managerid is not Null and 
+salary > (select salary from Employee where id=a.managerId);
+
+--or
+
