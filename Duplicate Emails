@@ -1,1 +1,19 @@
+SELECT email
+FROM Person
+GROUP BY email
+HAVING COUNT(email) > 1;
+
+--or 
+
+WITH temp AS (
+  SELECT
+    product_id,
+    ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_id) AS rnk
+  FROM sales
+)
+
+-- You can use the "temp" CTE in a subsequent query or join it with other tables
+SELECT product_id, rnk
+FROM temp
+WHERE rnk > 1;
 
