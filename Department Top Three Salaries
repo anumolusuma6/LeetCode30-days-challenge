@@ -1,0 +1,14 @@
+SELECT Department, Employee, Salary
+FROM (
+  SELECT
+    b.name AS Department,
+    a.name AS Employee,
+    a.salary AS Salary,
+    DENSE_RANK() OVER (PARTITION BY b.name ORDER BY a.salary DESC) AS rnk
+  FROM Employee a
+  LEFT JOIN Department b ON a.departmentId = b.Id
+) ranked_data
+WHERE rnk <= 3;
+
+--or
+
