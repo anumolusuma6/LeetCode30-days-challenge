@@ -1,0 +1,1 @@
+select b.name from Employee a inner join Employee b where a.managerId=b.Id group by a.managerId having count(*)>=5 
