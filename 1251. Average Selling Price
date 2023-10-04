@@ -2,3 +2,10 @@ SELECT a.product_id, ROUND(SUM(a.price * b.units) / SUM(b.units), 2) AS average_
 FROM Prices a
 INNER JOIN UnitsSold b ON a.product_id = b.product_id and b.purchase_date between a.start_date and a.end_date
 GROUP BY a.product_id;
+
+--or
+
+SELECT a.product_id, ifnull(ROUND(SUM(a.price * b.units) / SUM(b.units), 2),0) AS average_price
+FROM Prices a
+INNER JOIN UnitsSold b ON a.product_id = b.product_id and b.purchase_date between a.start_date and a.end_date
+GROUP BY a.product_id;
