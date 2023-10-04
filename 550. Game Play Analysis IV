@@ -1,0 +1,6 @@
+SELECT 
+ROUND(COUNT(l2.player_id) / COUNT(DISTINCT l1.player_id), 2) AS fraction
+FROM 
+    Activity l1
+LEFT JOIN 
+    Activity l2 ON l1.player_id = l2.player_id AND DATEDIFF(l1.event_date, l2.event_date) = 1
