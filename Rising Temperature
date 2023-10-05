@@ -5,3 +5,7 @@ where W1.recordDate-1 = W2.recordDate and W1.Temperature> W2.Temperature;
 --or
 
 select l1.Id as Id from Weather l1, Weather l2 where DATEDIFF(l1.recordDate,l2.recordDate)=1 and l1.temperature > l2.temperature;
+
+--or
+
+select l1.id from weather l1 inner join weather l2 where datediff(l1.recordDate,l2.recordDate)=1 and l1.temperature>l2.temperature 
