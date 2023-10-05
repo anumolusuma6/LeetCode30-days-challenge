@@ -1,0 +1,19 @@
+SELECT
+    b.product_id,
+    a.year AS first_year,
+    a.quantity,
+    a.price
+FROM
+    sales a
+INNER JOIN
+    product b ON a.product_id = b.product_id
+WHERE
+    (a.year, a.product_id) IN (
+        SELECT
+            MIN(year) AS first_year,
+            product_id
+        FROM
+            sales
+        GROUP BY
+            product_id
+    );
