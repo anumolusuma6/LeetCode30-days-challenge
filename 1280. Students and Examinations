@@ -2,15 +2,18 @@ SELECT
     a.student_id, 
     a.student_name, 
     d.subject_name, 
-    COUNT(b.student_id) as attended_exams
+    COUNT(b.subject_name) as attended_exams
 FROM 
     students a
 CROSS JOIN 
+--used cross join to create all combinations of subject name with student name)
     subjects d
 LEFT JOIN 
+--used left join because we need to get null values too from subjects table
     Examinations b 
 ON 
     a.student_id = b.student_id AND d.subject_name = b.subject_name
 GROUP BY 
+--this part is very important for the result to display in such a way
     a.student_id, a.student_name, d.subject_name
 order by a.student_id, d.subject_name;
