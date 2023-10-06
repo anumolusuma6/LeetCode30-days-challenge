@@ -1,5 +1,5 @@
-select a.machine_id, round(avg(b.timestamp-a.timestamp), 3) as processing_time from activity a inner join activity b on a.machine_id=b.machine_id and a.process_id=b.process_id and a.activity_type='start' and b.activity_type='end'
-group by 1; 
+select l1.machine_id, round(avg(l2.timestamp-l1.timestamp), 3) as processing_time from Activity l1 inner join Activity l2 on l1.machine_id=l2.machine_id and l1.activity_type='start'and l2.activity_type='end'
+group by machine_id
 
 --or
 
