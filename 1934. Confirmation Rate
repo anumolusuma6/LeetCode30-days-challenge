@@ -20,3 +20,9 @@ GROUP BY s.user_id)
 
 SELECT user_id, ROUND(con_cnt / tot_cnt,2) AS confirmation_rate
 FROM cte
+
+
+--or
+
+select a.user_id, round(sum(case when b.action='confirmed' then 1 else 0 end)/count(*), 2) as confirmation_rate from Signups a left join confirmations b on a.user_id=b.user_id
+group by a.user_id
