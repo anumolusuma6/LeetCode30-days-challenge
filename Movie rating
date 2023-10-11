@@ -1,0 +1,43 @@
+WITH cte1 AS (
+    SELECT a.name, COUNT(*) AS rating_count
+    FROM users a
+    INNER JOIN movieRating b ON a.user_id = b.user_id
+    GROUP BY a.name
+    ORDER BY rating_count DESC, a.name
+    LIMIT 1
+),
+cte2 AS (
+   SELECT a.title, AVG(b.rating) AS average
+FROM Movies a
+INNER JOIN MovieRating b ON a.movie_id = b.movie_id
+WHERE created_at BETWEEN '2020-02-01' AND '2020-02-28'
+GROUP BY a.title
+ORDER BY average DESC, a.title
+limit 1
+)
+SELECT results FROM (
+    SELECT name AS results FROM cte1
+    UNION ALL
+    SELECT title AS results FROM cte2
+) AS results;
+
+--or
+
+(SELECT name results
+FROM users u
+inner JOIN movie_rating mr
+ON u.user_id = mr.user_id
+GROUP BY 1
+ORDER BY count(rating) desc, 1 asc
+Limit 1)
+
+UNION All
+
+(SELECT title results
+FROM movies m
+inner JOIN movie_rating mr
+ON m.movie_id = mr.movie_id
+WHERE month(created_at) = 2 and year(created_at)='2020'
+GROUP BY 1
+ORDER BY avg(rating) desc, 1 asc
+Limit 1)
