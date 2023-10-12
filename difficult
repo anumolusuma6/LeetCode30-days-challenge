@@ -1,0 +1,13 @@
+select round(sum(distinct i1.tiv_2016),2) as tiv_2016 from insurance i1
+inner join insurance i2 on i1.tiv_2015 = i2.tiv_2015
+where (i1.lat <> i2.lat) and (i1.lon <> i2.lon) and 
+i1.tiv_2016 in (select distinct tiv_2016 from insurance group by lat,lon having count(*) = 1);
+
+--or
+
+select sum(a.TIV_2016) as TIV_2016 from insurance a
+where
+a.TIV_2015 in (select b.TIV_2015 from insurance b where a.PID <> b.PID)
+and
+(a.LAT, a.LON) not in (select c.LAT, c.LON from insurance c where a.PID <> c.PID)
+;
