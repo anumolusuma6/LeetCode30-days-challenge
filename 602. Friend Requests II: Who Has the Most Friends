@@ -1,0 +1,7 @@
+select c.id, count(*) as num from
+(select requester_id as id from Requestaccepted
+union all
+select accepter_id from requestaccepted) as c
+group by id
+order by count(*) desc
+limit 1
