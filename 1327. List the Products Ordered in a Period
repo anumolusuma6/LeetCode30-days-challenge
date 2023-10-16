@@ -1,0 +1,7 @@
+SELECT a.product_name, 
+       SUM(unit) AS unit
+FROM products a
+INNER JOIN orders b ON a.product_id = b.product_id
+where month(b.order_date)=2 and year(b.order_date)=2020
+GROUP BY a.product_name
+having unit>=100
