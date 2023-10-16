@@ -1,0 +1,21 @@
+SELECT max(salary) as SecondHighestSalary
+FROM employee
+WHERE employee.salary < (
+SELECT max(salary)
+FROM employee)
+
+--or
+
+SELECT max(salary) as SecondHighestSalary
+FROM employee
+WHERE employee.salary <> (
+SELECT max(salary)
+FROM employee)
+
+--or
+
+SELECT max(salary) as SecondHighestSalary
+FROM employee
+WHERE employee.salary NOT IN  (
+SELECT max(salary)
+FROM employee)
