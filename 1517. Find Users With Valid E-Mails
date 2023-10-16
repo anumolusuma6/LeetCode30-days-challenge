@@ -1,3 +1,12 @@
 # Write your MySQL query statement below
 select user_id, name, mail from Users 
 where mail regexp '^[A-Za-z]+[a-zA-Z-._0-9]*@leetcode[.]com'
+
+
+--or
+
+select user_id, name, mail
+from Users
+where right(mail,13) = '@leetcode.com'                          -- domain name is @leetcode.com
+and left(mail,LEN(mail) - 13) LIKE '[A-Za-z]%'                  -- first part of email is staring with letter either Capital / small 
+and left(mail,LEN(mail) - 13) NOT LIKE '%[^A-Za-z0-9._-]%'
